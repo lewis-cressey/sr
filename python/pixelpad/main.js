@@ -104,6 +104,7 @@ function showError(text) {
 	const stderr = document.getElementById("stderr")
 	stderr.textContent = text
 	popupLayer.classList.remove("hidden")
+	frameHandler = null
 	return null
 }
 	
@@ -113,7 +114,6 @@ setInterval(event => {
 			frameHandler()
 		} catch (e) {
 			showError(e.toString())
-			frameHandler = null
 		}
 	}
 }, 20)
@@ -155,18 +155,27 @@ const builtins = {
 		screen.clear()
 	},
 	
-	set_colour: function(colour) {
-		screen.set_colour(colour)
+	set_colour: function(red, green, blue) {
+		if (Number.isInteger(red) && Number.isInteger(green) && Number.isInteger(blue)) {
+			red = "00" + red.toString(16)
+			green = "00" + green.toString(16)
+			blue = "00" + blue.toString(16)
+			red = red.slice(red.length - 2)
+			green = green.slice(green.length - 2)
+			blue = blue.slice(blue.length - 2)
+			screen.set_colour(`#${red}${green}${blue}`)
+		} else {
+			showError(`(${red}, ${green}, ${blue}) is not a valid RGB colour!`)
+		}
 	},
 	
 	plot: function(x, y) {
-		screen.plot(parseInt(x), parseInt(y))
+		if (Number.isInteger(x) && Number.isInteger(y)) {
+			screen.plot(x, y)
+		} else {
+			showError(`(${x}, ${y}) are not valid coordinates!`)
+		}
 		return null
-	},
-			
-	each_frame: function(f) {
-		if (frameHandler) frameHandler.destroy()
-		frameHandler = f.toJs()
 	}
 }
 
@@ -175,8 +184,6 @@ const builtins = {
  ****************************************************************************/
 
 const initPython = async function() {
-	let frameHandler = null
-
 	const pyodide = await loadPyodide();
 	for (let key of Object.keys(builtins)) {
 		pyodide.globals.set(key, builtins[key])
@@ -191,6 +198,9 @@ const initPython = async function() {
 			import pyodide
 			import hostpage
 			
+			def each_frame():
+				pass
+
 			def run_program(code, namespace):
 				clear()
 				try:
@@ -202,6 +212,7 @@ const initPython = async function() {
 		
 		screenCanvas.focus()
 		pyodide.globals.get("run_program")(code, pyodide.globals)
+		frameHandler = pyodide.globals.get("each_frame")
 	})
 }
 
