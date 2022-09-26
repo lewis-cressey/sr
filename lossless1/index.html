@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF 8">
+    <title>Lossless compression exercise</title>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+$(document).ready(function() {
+	function findDifference(actual, expected) {
+		let length = Math.min(actual.length, expected.length);
+		let lineStart = 0;
+		for (let i = 0; i < length; i += 1) {
+			if (actual.charAt(i) == '\n') {
+				lineStart = i + 1;
+			} else if (actual.charAt(i) != expected.charAt(i)) {
+				return actual.substring(0, lineStart) + "ERROR-> " + actual.substring(lineStart);
+			}
+		}
+	}
+
+	function testCompression() {
+		let originalText = $("#original-textarea").val().trim();
+		let compressedText = $("#compressed-textarea").val().trim();
+		let substitutions = $("#substitution-textarea").val().trim();
+
+		let $decompressedTextarea = $("#decompressed-textarea");
+		let compressedLength = compressedText.length + substitutions.length;
+		$("#compressed-size").text(compressedLength);
+		$("#original-size").text(originalText.length);
+		
+		for (let line of substitutions.split("\n")) {
+			let equalsIndex = line.indexOf("=");
+			if (equalsIndex < 0) continue;
+			let lhs = line.substring(0, equalsIndex);
+			let rhs = line.substring(equalsIndex + 1);
+			compressedText = compressedText.split(lhs).join(rhs);
+		}
+		
+		compressedText = compressedText.split("_").join(" ");
+		
+		let words1 = compressedText.split(/\s+/).join(" ");
+		let words2 = originalText.split(/\s+/).join(" ");
+		let savedCount = originalText.length - compressedLength;
+		if (words1 != words2) {
+			$decompressedTextarea.css({ background: "#ff0000" });
+			$("#status-p").text("The compressed text does not match the original.");
+			compressedText = findDifference(compressedText, originalText);
+		} else if (savedCount >= 0) {
+			$decompressedTextarea.css({ background: "#00ff00" });
+			$("#status-p").text("You have saved " + savedCount + " bytes.");
+		} else {
+			$decompressedTextarea.css({ background: "#ff8888" });
+			$("#status-p").text("You have wasted " + (-savedCount) + " bytes.");
+		}
+
+		$decompressedTextarea.val(compressedText);
+	};
+	$("#test-button").on("click", testCompression);
+	testCompression();
+})
+	</script>
+  </head>
+  <body>
+  <h1>Lossless compression</h1>
+<p>
+  Compressed version:
+</p>
+<textarea id="compressed-textarea" cols="60" rows="24">
+OH HOH HOH HOAH
+OH HOH HOH HOAH
+OH HOH HOH HOAH
+OH HOH HOH HOAH
+
+EVERYBODY WAS KUNG FU FIGHTING
+THOSE KIDS WERE FAST AS LIGHTNING
+IN FACT IT WAS A LITTLE BIT FRIGHTENING
+BUT THEY FOUGHT WITH EXPERT TIMING
+
+THERE WERE FUNKY CHINA MEN FROM FUNKY CHINA TOWN
+THEY WERE CHOPPING THEM UP
+THEY WERE CHOPPING THEM DOWN
+IT'S AN ANCIENT CHINESE ART
+AND EVERYBODY KNEW THEIR PART
+FROM A FEINTING TO A SLIP
+AND A KICKING FROM THE HIP
+
+EVERYBODY WAS KUNG FU FIGHTING
+THOSE KIDS WERE FAST AS LIGHTNING
+IN FACT IT WAS A LITTLE BIT FRIGHTENING
+BUT THEY FOUGHT WITH EXPERT TIMING
+</textarea>
+<textarea id="substitution-textarea" cols="60" rows="24"></textarea>
+<p>
+  Decompressed version (<b id="compressed-size"></b> bytes) vs original (<b id="original-size"></b> bytes).
+  <span id="status-p"></span>
+  <button id="test-button">Click to recalculate</button>
+</p>
+<textarea id="decompressed-textarea" cols="60" rows="24"></textarea>
+<textarea id="original-textarea" cols="60" rows="24" disabled>
+OH HOH HOH HOAH
+OH HOH HOH HOAH
+OH HOH HOH HOAH
+OH HOH HOH HOAH
+
+EVERYBODY WAS KUNG FU FIGHTING
+THOSE KIDS WERE FAST AS LIGHTNING
+IN FACT IT WAS A LITTLE BIT FRIGHTENING
+BUT THEY FOUGHT WITH EXPERT TIMING
+
+THERE WERE FUNKY CHINA MEN FROM FUNKY CHINA TOWN
+THEY WERE CHOPPING THEM UP
+THEY WERE CHOPPING THEM DOWN
+IT'S AN ANCIENT CHINESE ART
+AND EVERYBODY KNEW THEIR PART
+FROM A FEINTING TO A SLIP
+AND A KICKING FROM THE HIP
+
+EVERYBODY WAS KUNG FU FIGHTING
+THOSE KIDS WERE FAST AS LIGHTNING
+IN FACT IT WAS A LITTLE BIT FRIGHTENING
+BUT THEY FOUGHT WITH EXPERT TIMING
+</textarea>
+  </body>
+</html>
