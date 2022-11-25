@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html>
+	<head>
+		<style>
+			body {
+				max-width: 40em;
+				margin: 0 auto;
+				background: black;
+				color: #eee;
+				font-family: sans-serif;
+			}
+			h1 {
+				font-size: 1.2rem;
+				text-decoration: underline;
+				text-align: center;
+			}
+			.gallery {
+				display: grid;
+				grid-template-columns: auto auto;
+				grid-template-rows: auto auto;
+				justify-items: center;
+				align-items: center;
+			}
+			.gallery a {
+			}
+			.gallery img {
+				max-width: 18em;
+				max-height: 18em;
+				border: 1px solid black;
+				margin: 2px;
+				transition: transform 0.2s ease-in-out;
+			}
+			.gallery img:hover {
+				transform: scale(1.05);
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Y9: Gimp lesson 1</h1>
+		<p>
+			In this lesson, you will practice inserting one image inside another.
+			Use the perspective tool, along with colour adjustments and filters,
+			to create a realistic result!
+		</p>
+		<p>
+			Here are the images for the exercises:
+		</p>
+		<div class="gallery">
+			<a href="image1.jpg"><img src="image1.jpg" /></a>
+			<a href="image2.jpg"><img src="image2.jpg" /></a>
+			<a href="image3.jpg"><img src="image3.jpg" /></a>
+			<a href="image4.jpg"><img src="image4.jpg" /></a>
+		</div>
+	</body>
+</html>
