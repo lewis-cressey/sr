@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html>
+	<head>
+		<style>
+			body {
+				max-width: 40em;
+				margin: 0 auto;
+				background: black;
+				color: #eee;
+				font-family: sans-serif;
+			}
+			h1 {
+				font-size: 1.2rem;
+				text-decoration: underline;
+				text-align: center;
+			}
+			.gallery {
+				display: grid;
+				grid-template-columns: auto auto;
+				grid-template-rows: auto auto;
+				justify-items: center;
+				align-items: center;
+			}
+			.gallery a {
+			}
+			.gallery img {
+				max-width: 18em;
+				max-height: 18em;
+				border: 1px solid black;
+				margin: 2px;
+				transition: transform 0.2s ease-in-out;
+			}
+			.gallery img:hover {
+				transform: scale(1.05);
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Y9: Gimp lesson 2</h1>
+		<p>
+			In this lesson, you will add colour to old black and white photographs!
+		</p>
+		<p>
+			Here are the images for the exercises:
+		</p>
+		<div class="gallery">
+			<figure>
+				<a href="depression.jpg"><img src="depression.jpg" /></a>
+				<figcaption>An American woman during the Great Depression</figcaption>
+			</figure>
+			<figure>
+				<a href="titanic.jpg"><img src="titanic.jpg" /></a>
+				<figcaption>Passengers exercising in the gym on the Titanic</figcaption>
+			</figure>
+			<figure>
+				<a href="soldiers.jpg"><img src="soldiers.jpg" /></a>
+				<figcaption>English soldiers from World War 1.</figcaption>
+			</figure>
+			<figure>
+				<a href="bonnie-and-clyde.jpg"><img src="bonnie-and-clyde.jpg" /></a>
+				<figcaption>Celebrity gangsters Bonnie and Clyde</figcaption>
+			</figure>
+			<figure>
+				<a href="chaplin.jpg"><img src="chaplin.jpg" /></a>
+				<figcaption>Actor Charlie Chaplin</figcaption>
+			</figure>
+			<figure>
+				<a href="flapper.jpg"><img src="flapper.jpg" /></a>
+				<figcaption>Flapper fashion from the 1920s</figcaption>
+			</figure>
+		</div>
+	</body>
+</html>
