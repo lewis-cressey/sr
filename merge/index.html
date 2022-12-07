@@ -1,0 +1,101 @@
+<!doctype html>
+
+<html>
+	<head>
+		<style>
+			body {
+				max-width: 40em;
+				margin: 0 auto;
+				background: black;
+				color: #eee;
+				font-family: sans-serif;
+			}
+			h1 {
+				font-size: 1.2rem;
+				text-decoration: underline;
+				text-align: center;
+			}
+			.gallery {
+				display: grid;
+				grid-template-columns: auto auto;
+				grid-template-rows: auto auto;
+				justify-items: center;
+				align-items: center;
+			}
+			.gallery a {
+			}
+			.gallery img {
+				max-width: 18em;
+				max-height: 18em;
+				border: 1px solid black;
+				margin: 2px;
+				transition: transform 0.2s ease-in-out;
+			}
+			.gallery img:hover {
+				transform: scale(1.05);
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Y9: Gimp lesson 3</h1>
+		<p>
+			In this lesson, you will combine different pictures to create unusual images!
+		</p>
+		<p>
+			Here are some examples:
+		</p>
+		<div class="gallery">
+			<figure>
+				<a href="moonloo.jpg"><img src="moonloo.jpg" /></a>
+				<figcaption>A picture of a toilet on the moon.</figcaption>
+			</figure>
+			<figure>
+				<a href="walrus.jpg"><img src="walrus.jpg" /></a>
+				<figcaption>A picture of soldiers fighting a giant walrus.</figcaption>
+			</figure>
+		</div>
+		<h2>Challenges for you</h2>
+		
+		<p>
+			Put the Volvo into the picture of an erupting volcano:
+		</p>
+		<div class="gallery">
+			<figure>
+				<a href="volcano.jpg"><img src="volcano.jpg" /></a>
+				<figcaption>Volcano.</figcaption>
+			</figure>
+			<figure>
+				<a href="volvo.jpg"><img src="volvo.jpg" /></a>
+				<figcaption>Volvo.</figcaption>
+			</figure>
+		</div>		
+		
+		<p>
+			Put the bathtub into the desert:
+		</p>
+		<div class="gallery">
+			<figure>
+				<a href="desert.jpg"><img src="desert.jpg" /></a>
+				<figcaption>Desert.</figcaption>
+			</figure>
+			<figure>
+				<a href="bathtub.jpg"><img src="bathtub.jpg" /></a>
+				<figcaption>Bath tub.</figcaption>
+			</figure>
+		</div>	
+		
+		<p>
+			Put Justin Trudeau into this photograph of Fidel Castro.
+		</p>
+		<div class="gallery">
+			<figure>
+				<a href="castro.jpg"><img src="castro.jpg" /></a>
+				<figcaption>Justin Trudeau.</figcaption>
+			</figure>
+			<figure>
+				<a href="trudeau.jpg"><img src="trudeau.jpg" /></a>
+				<figcaption>Fidel Castro.</figcaption>
+			</figure>
+		</div>
+	</body>
+</html>
